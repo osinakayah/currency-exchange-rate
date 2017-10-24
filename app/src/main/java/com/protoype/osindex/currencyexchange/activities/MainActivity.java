@@ -91,26 +91,29 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void prepareCurrencyList(){
-        realWorldCurrencies.add(new RealWorldCurrency(R.drawable.afn, "Afghan Afghani", "AFN"));
-        realWorldCurrencies.add(new RealWorldCurrency(R.drawable.all, "Albanian Lek", "ALL"));
-        realWorldCurrencies.add(new RealWorldCurrency(R.drawable.ang, "Netherlands Antillean Guilder", "ANG"));
-        realWorldCurrencies.add(new RealWorldCurrency(R.drawable.aoa, "Angolan Kwanza", "AOA"));
-        realWorldCurrencies.add(new RealWorldCurrency(R.drawable.ars, "Argentine Peso", "ARS"));
-        realWorldCurrencies.add(new RealWorldCurrency(R.drawable.aud, "Australian Dollar", "AUD"));
-        realWorldCurrencies.add(new RealWorldCurrency(R.drawable.azn, "Azerbaijani Manat", "AZN"));
-        realWorldCurrencies.add(new RealWorldCurrency(R.drawable.bam, "Bosnia-Herzegovina Convertible Mark", "BAM"));
-        realWorldCurrencies.add(new RealWorldCurrency(R.drawable.bbd, "Barbadian Dollar", "BBD"));
-        realWorldCurrencies.add(new RealWorldCurrency(R.drawable.bdt, "Bangladeshi Taka", "BDT"));
+        if(RealWorldCurrency.listAll(RealWorldCurrency.class).size() < 1){
+            realWorldCurrencies.add(new RealWorldCurrency(R.drawable.afn, "Afghan Afghani", "AFN", true));
+            realWorldCurrencies.add(new RealWorldCurrency(R.drawable.all, "Albanian Lek", "ALL", true));
+            realWorldCurrencies.add(new RealWorldCurrency(R.drawable.ang, "Netherlands Antillean Guilder", "ANG", true));
+            realWorldCurrencies.add(new RealWorldCurrency(R.drawable.aoa, "Angolan Kwanza", "AOA",true));
+            realWorldCurrencies.add(new RealWorldCurrency(R.drawable.ars, "Argentine Peso", "ARS", true));
+            realWorldCurrencies.add(new RealWorldCurrency(R.drawable.aud, "Australian Dollar", "AUD", true));
+            realWorldCurrencies.add(new RealWorldCurrency(R.drawable.azn, "Azerbaijani Manat", "AZN", true));
+            realWorldCurrencies.add(new RealWorldCurrency(R.drawable.bam, "Bosnia-Herzegovina Convertible Mark", "BAM", true));
+            realWorldCurrencies.add(new RealWorldCurrency(R.drawable.bbd, "Barbadian Dollar", "BBD", true));
+            realWorldCurrencies.add(new RealWorldCurrency(R.drawable.bdt, "Bangladeshi Taka", "BDT", true));
 
-        realWorldCurrencies.add(new RealWorldCurrency(R.drawable.bgn, "Bulgarian Lev", "BGN"));
-        realWorldCurrencies.add(new RealWorldCurrency(R.drawable.bhd, "Bahraini Dinar", "BHD"));
-        realWorldCurrencies.add(new RealWorldCurrency(R.drawable.bif, "Burundian Franc", "BIF"));
-        realWorldCurrencies.add(new RealWorldCurrency(R.drawable.bnd, "Brunei Dollar", "BND"));
-        realWorldCurrencies.add(new RealWorldCurrency(R.drawable.brl, "Brazilian Real", "BRL"));
-        realWorldCurrencies.add(new RealWorldCurrency(R.drawable.gbp, "British Pound Sterling", "GBP"));
-        realWorldCurrencies.add(new RealWorldCurrency(R.drawable.ghs, "Ghanaian Cedi", "GHS"));
-        realWorldCurrencies.add(new RealWorldCurrency(R.drawable.ngn, "Nigerian Naira", "NGN"));
-        realWorldCurrencies.add(new RealWorldCurrency(R.drawable.usd, "United States Dollar", "USD"));
-        realWorldCurrencies.add(new RealWorldCurrency(R.drawable.zwl, "Zimbabwean Dollar", "ZWL"));
+            realWorldCurrencies.add(new RealWorldCurrency(R.drawable.bgn, "Bulgarian Lev", "BGN", true));
+            realWorldCurrencies.add(new RealWorldCurrency(R.drawable.bhd, "Bahraini Dinar", "BHD", true));
+            realWorldCurrencies.add(new RealWorldCurrency(R.drawable.bif, "Burundian Franc", "BIF", true));
+            realWorldCurrencies.add(new RealWorldCurrency(R.drawable.bnd, "Brunei Dollar", "BND", true));
+            realWorldCurrencies.add(new RealWorldCurrency(R.drawable.brl, "Brazilian Real", "BRL", true));
+            realWorldCurrencies.add(new RealWorldCurrency(R.drawable.gbp, "British Pound Sterling", "GBP", true));
+            realWorldCurrencies.add(new RealWorldCurrency(R.drawable.ghs, "Ghanaian Cedi", "GHS", true));
+            realWorldCurrencies.add(new RealWorldCurrency(R.drawable.ngn, "Nigerian Naira", "NGN", true));
+            realWorldCurrencies.add(new RealWorldCurrency(R.drawable.usd, "United States Dollar", "USD", true));
+            realWorldCurrencies.add(new RealWorldCurrency(R.drawable.zwl, "Zimbabwean Dollar", "ZWL", true));
+        }
+        realWorldCurrencies.clear();
     }
 }

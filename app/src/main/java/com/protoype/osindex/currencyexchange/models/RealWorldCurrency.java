@@ -8,8 +8,22 @@ import com.protoype.osindex.currencyexchange.abstracts.CurrencyAbstract;
 
 public class RealWorldCurrency extends CurrencyAbstract {
     private double exchangeRateAgainstDollar;
-    public RealWorldCurrency(int iconResource, String fullName, String shortName) {
+    private boolean isAddedToDash;
+
+    public boolean isAddedToDash() {
+        return isAddedToDash;
+    }
+
+    public void setAddedToDash(boolean addedToDash) {
+        isAddedToDash = addedToDash;
+    }
+
+    public RealWorldCurrency(int iconResource, String fullName, String shortName, boolean shouldSave) {
         super(iconResource, fullName, shortName);
+        this.isAddedToDash = false;
+        if(shouldSave){
+            save();
+        }
     }
     private void computeExchangeRateAgainstBitcoin(){
 
