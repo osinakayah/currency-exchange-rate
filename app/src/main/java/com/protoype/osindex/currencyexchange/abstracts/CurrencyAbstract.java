@@ -1,12 +1,14 @@
 package com.protoype.osindex.currencyexchange.abstracts;
 
+import com.orm.SugarRecord;
 import com.protoype.osindex.currencyexchange.interfaces.CurrencyInterface;
+import com.protoype.osindex.currencyexchange.models.RealWorldCurrency;
 
 /**
  * Created by osindex on 10/7/17.
  */
 
-public abstract class CurrencyAbstract implements CurrencyInterface {
+public abstract class CurrencyAbstract extends SugarRecord<RealWorldCurrency> implements CurrencyInterface {
     protected int iconResource;
     protected String shortName, fullName;
     public CurrencyAbstract(int iconResource, String fullName, String shortName){

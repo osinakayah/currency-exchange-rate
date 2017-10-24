@@ -24,12 +24,14 @@ public class CurrencyAdapter extends RecyclerView.Adapter<CurrencyAdapter.ViewHo
     }
     public class ViewHolder extends RecyclerView.ViewHolder{
         public ImageView currencyImage;
-        public TextView textViewCurrencyFullname, textViewCurrencyShortName;
+        public TextView textViewCurrencyFullname, textViewCurrencyShortName, textViewCurrencyShortNameToBtc, textViewCurrencyShortNameToEth;
         public ViewHolder(View view){
             super(view);
-            textViewCurrencyFullname    = (TextView)view.findViewById(R.id.single_currency_fullname);
-            textViewCurrencyShortName           = (TextView)view.findViewById(R.id.single_currency_short_name);
-            currencyImage               = (ImageView)view.findViewById(R.id.single_currency_image);
+            textViewCurrencyFullname        = (TextView)view.findViewById(R.id.single_currency_fullname);
+            textViewCurrencyShortName       = (TextView)view.findViewById(R.id.single_currency_short_name);
+            currencyImage                   = (ImageView)view.findViewById(R.id.single_currency_image);
+            textViewCurrencyShortNameToBtc  = (TextView)view.findViewById(R.id.single_currency_short_name_to_btc);
+            textViewCurrencyShortNameToEth  = (TextView)view.findViewById(R.id.single_currency_short_name_to_eth);
         }
     }
 
@@ -46,6 +48,8 @@ public class CurrencyAdapter extends RecyclerView.Adapter<CurrencyAdapter.ViewHo
         holder.currencyImage.setImageResource(realWorldCurrency.getResource());
         holder.textViewCurrencyShortName.setText(realWorldCurrency.getShortName());
         holder.textViewCurrencyFullname.setText(realWorldCurrency.getFullname());
+        holder.textViewCurrencyShortNameToBtc.setText(realWorldCurrency.getShortName());
+        holder.textViewCurrencyShortNameToEth.setText(realWorldCurrency.getShortName());
     }
 
     @Override

@@ -12,14 +12,17 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.protoype.osindex.currencyexchange.R;
 import com.protoype.osindex.currencyexchange.adapters.CurrencyAdapter;
+import com.protoype.osindex.currencyexchange.interfaces.CurrencyInterface;
 import com.protoype.osindex.currencyexchange.models.RealWorldCurrency;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.protoype.osindex.currencyexchange.R.id.fab;
+import static com.protoype.osindex.currencyexchange.R.id.theater;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -42,14 +45,27 @@ public class MainActivity extends AppCompatActivity {
         recyclerViewCurrency.setAdapter(currencyAdapter);
 
 
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new MaterialDialog.Builder(MainActivity.this)
+                            .title("New Currency")
+                            .content("Add new")
+                            .positiveText("yes")
+                            .items(realWorldCurrencies)
+                            .itemsCallbackMultiChoice(null, new MaterialDialog.ListCallbackMultiChoice() {
+                                @Override
+                                public boolean onSelection(MaterialDialog dialog, Integer[] which, CharSequence[] text) {
+                                    return false;
+                                }
+                            })
+                            .negativeText("No").show();
+
 //                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
 //                        .setAction("Action", null).show();
-//            }
-//        });
+            }
+        });
     }
 
     @Override
