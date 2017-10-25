@@ -62,8 +62,13 @@ public class MainActivity extends AppCompatActivity {
                             .itemsCallbackMultiChoice(null, new MaterialDialog.ListCallbackMultiChoice() {
                                 @Override
                                 public boolean onSelection(MaterialDialog dialog, Integer[] which, CharSequence[] text) {
-                                    Log.i(MainActivity.class.getName(), which.toString());
-                                    Log.i(MainActivity.class.getName(), text.toString());
+                                    RealWorldCurrency worldCurrency;
+                                    for(Integer integer: which){
+                                        worldCurrency = unAddedCurrencies.get(integer);
+                                        worldCurrency.setAddedToDash(true);
+                                        worldCurrency.save();
+                                    }
+                                    prepareCurrencyList();
                                     return false;
                                 }
                             })
@@ -122,7 +127,12 @@ public class MainActivity extends AppCompatActivity {
              new RealWorldCurrency(R.drawable.zwl, "Zimbabwean Dollar", "ZWL", true);
         }
         currenciesOnDashboard = RealWorldCurrency.find(RealWorldCurrency.class, "is_added_to_dash = ?", "1");
+        realWorldCurrencies.clear();
         realWorldCurrencies.addAll(currenciesOnDashboard);
+        if(currencyAdapter != null){
+            currencyAdapter.notifyDataSetChanged();
+        }
+
     }
 
     private String[] getUnAddedCurrencies(){
