@@ -14,8 +14,10 @@ import android.view.MenuItem;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.protoype.osindex.currencyexchange.R;
+import com.protoype.osindex.currencyexchange.abstracts.CurrencyAbstract;
 import com.protoype.osindex.currencyexchange.adapters.CurrencyAdapter;
 import com.protoype.osindex.currencyexchange.interfaces.CurrencyInterface;
+import com.protoype.osindex.currencyexchange.models.RealCurrency;
 import com.protoype.osindex.currencyexchange.models.RealWorldCurrency;
 
 import java.util.ArrayList;

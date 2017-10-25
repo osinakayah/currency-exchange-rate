@@ -8,9 +8,13 @@ import com.protoype.osindex.currencyexchange.models.RealWorldCurrency;
  * Created by osindex on 10/7/17.
  */
 
-public abstract class CurrencyAbstract extends SugarRecord<RealWorldCurrency> implements CurrencyInterface {
+public abstract class CurrencyAbstract extends SugarRecord<CurrencyInterface> implements CurrencyInterface {
     protected int iconResource;
     protected String shortName, fullName;
+
+    public CurrencyAbstract(){
+
+    }
     public CurrencyAbstract(int iconResource, String fullName, String shortName){
         setFullname(fullName);
         setShortName(shortName);

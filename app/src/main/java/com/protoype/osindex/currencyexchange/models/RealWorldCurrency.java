@@ -18,11 +18,15 @@ public class RealWorldCurrency extends CurrencyAbstract {
         isAddedToDash = addedToDash;
     }
 
+    public RealWorldCurrency(){
+
+    }
+
     public RealWorldCurrency(int iconResource, String fullName, String shortName, boolean shouldSave) {
         super(iconResource, fullName, shortName);
         this.isAddedToDash = false;
         if(shouldSave){
-            save();
+            //save();
         }
     }
     private void computeExchangeRateAgainstBitcoin(){
