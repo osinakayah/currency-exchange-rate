@@ -26,7 +26,7 @@ public class RealWorldCurrency extends CurrencyAbstract {
         super(iconResource, fullName, shortName);
         this.isAddedToDash = false;
         if(shouldSave){
-            //save();
+            save();
         }
     }
     private void computeExchangeRateAgainstBitcoin(){

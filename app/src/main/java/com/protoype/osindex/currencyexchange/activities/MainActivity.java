@@ -8,6 +8,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,6 +30,7 @@ import static com.protoype.osindex.currencyexchange.R.id.theater;
 public class MainActivity extends AppCompatActivity {
 
     private List<RealWorldCurrency> realWorldCurrencies  = new ArrayList<>();
+    private List<RealWorldCurrency> unAddedCurrencies;
     private RecyclerView recyclerViewCurrency;
     private CurrencyAdapter currencyAdapter;
 
@@ -53,16 +55,19 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 new MaterialDialog.Builder(MainActivity.this)
                             .title("New Currency")
-                            .content("Add new")
-                            .positiveText("yes")
-                            .items(realWorldCurrencies)
+                            .content("Add new currency")
+                            .positiveText("Save")
+                            .negativeText("Cancel")
+                            .items(getUnAddedCurrencies())
                             .itemsCallbackMultiChoice(null, new MaterialDialog.ListCallbackMultiChoice() {
                                 @Override
                                 public boolean onSelection(MaterialDialog dialog, Integer[] which, CharSequence[] text) {
+                                    Log.i(MainActivity.class.getName(), which.toString());
+                                    Log.i(MainActivity.class.getName(), text.toString());
                                     return false;
                                 }
                             })
-                            .negativeText("No").show();
+                            .show();
 
 //                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
 //                        .setAction("Action", null).show();
@@ -93,29 +98,40 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void prepareCurrencyList(){
-        if(RealWorldCurrency.listAll(RealWorldCurrency.class).size() < 1){
-            realWorldCurrencies.add(new RealWorldCurrency(R.drawable.afn, "Afghan Afghani", "AFN", true));
-            realWorldCurrencies.add(new RealWorldCurrency(R.drawable.all, "Albanian Lek", "ALL", true));
-            realWorldCurrencies.add(new RealWorldCurrency(R.drawable.ang, "Netherlands Antillean Guilder", "ANG", true));
-            realWorldCurrencies.add(new RealWorldCurrency(R.drawable.aoa, "Angolan Kwanza", "AOA",true));
-            realWorldCurrencies.add(new RealWorldCurrency(R.drawable.ars, "Argentine Peso", "ARS", true));
-            realWorldCurrencies.add(new RealWorldCurrency(R.drawable.aud, "Australian Dollar", "AUD", true));
-            realWorldCurrencies.add(new RealWorldCurrency(R.drawable.azn, "Azerbaijani Manat", "AZN", true));
-            realWorldCurrencies.add(new RealWorldCurrency(R.drawable.bam, "Bosnia-Herzegovina Convertible Mark", "BAM", true));
-            realWorldCurrencies.add(new RealWorldCurrency(R.drawable.bbd, "Barbadian Dollar", "BBD", true));
-            realWorldCurrencies.add(new RealWorldCurrency(R.drawable.bdt, "Bangladeshi Taka", "BDT", true));
-
-            realWorldCurrencies.add(new RealWorldCurrency(R.drawable.bgn, "Bulgarian Lev", "BGN", true));
-            realWorldCurrencies.add(new RealWorldCurrency(R.drawable.bhd, "Bahraini Dinar", "BHD", true));
-            realWorldCurrencies.add(new RealWorldCurrency(R.drawable.bif, "Burundian Franc", "BIF", true));
-            realWorldCurrencies.add(new RealWorldCurrency(R.drawable.bnd, "Brunei Dollar", "BND", true));
-            realWorldCurrencies.add(new RealWorldCurrency(R.drawable.brl, "Brazilian Real", "BRL", true));
-            realWorldCurrencies.add(new RealWorldCurrency(R.drawable.gbp, "British Pound Sterling", "GBP", true));
-            realWorldCurrencies.add(new RealWorldCurrency(R.drawable.ghs, "Ghanaian Cedi", "GHS", true));
-            realWorldCurrencies.add(new RealWorldCurrency(R.drawable.ngn, "Nigerian Naira", "NGN", true));
-            realWorldCurrencies.add(new RealWorldCurrency(R.drawable.usd, "United States Dollar", "USD", true));
-            realWorldCurrencies.add(new RealWorldCurrency(R.drawable.zwl, "Zimbabwean Dollar", "ZWL", true));
+        List<RealWorldCurrency> currenciesOnDashboard = RealWorldCurrency.listAll(RealWorldCurrency.class);
+        if(currenciesOnDashboard.size() < 1){
+             new RealWorldCurrency(R.drawable.afn, "Afghan Afghani", "AFN", true);
+             new RealWorldCurrency(R.drawable.all, "Albanian Lek", "ALL", true);
+             new RealWorldCurrency(R.drawable.ang, "Netherlands Antillean Guilder", "ANG", true);
+             new RealWorldCurrency(R.drawable.aoa, "Angolan Kwanza", "AOA",true);
+             new RealWorldCurrency(R.drawable.ars, "Argentine Peso", "ARS", true);
+             new RealWorldCurrency(R.drawable.aud, "Australian Dollar", "AUD", true);
+             new RealWorldCurrency(R.drawable.azn, "Azerbaijani Manat", "AZN", true);
+             new RealWorldCurrency(R.drawable.bam, "Bosnia-Herzegovina Convertible Mark", "BAM", true);
+             new RealWorldCurrency(R.drawable.bbd, "Barbadian Dollar", "BBD", true);
+             new RealWorldCurrency(R.drawable.bdt, "Bangladeshi Taka", "BDT", true);
+             new RealWorldCurrency(R.drawable.bgn, "Bulgarian Lev", "BGN", true);
+             new RealWorldCurrency(R.drawable.bhd, "Bahraini Dinar", "BHD", true);
+             new RealWorldCurrency(R.drawable.bif, "Burundian Franc", "BIF", true);
+             new RealWorldCurrency(R.drawable.bnd, "Brunei Dollar", "BND", true);
+             new RealWorldCurrency(R.drawable.brl, "Brazilian Real", "BRL", true);
+             new RealWorldCurrency(R.drawable.gbp, "British Pound Sterling", "GBP", true);
+             new RealWorldCurrency(R.drawable.ghs, "Ghanaian Cedi", "GHS", true);
+             new RealWorldCurrency(R.drawable.ngn, "Nigerian Naira", "NGN", true);
+             new RealWorldCurrency(R.drawable.usd, "United States Dollar", "USD", true);
+             new RealWorldCurrency(R.drawable.zwl, "Zimbabwean Dollar", "ZWL", true);
         }
-        realWorldCurrencies.clear();
+        currenciesOnDashboard = RealWorldCurrency.find(RealWorldCurrency.class, "is_added_to_dash = ?", "1");
+        realWorldCurrencies.addAll(currenciesOnDashboard);
+    }
+
+    private String[] getUnAddedCurrencies(){
+        unAddedCurrencies = RealWorldCurrency.find(RealWorldCurrency.class, "is_added_to_dash = ?", "0");
+        String[] stringUnaddedCurrencies = new String[unAddedCurrencies.size()];
+        for(int z = 0; z < unAddedCurrencies.size(); z++){
+            RealWorldCurrency realWorldCurrency = unAddedCurrencies.get(z);
+            stringUnaddedCurrencies[z] = realWorldCurrency.getFullname()+" ("+realWorldCurrency.getShortName()+")";
+        }
+        return stringUnaddedCurrencies;
     }
 }
