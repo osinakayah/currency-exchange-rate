@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.protoype.osindex.currencyexchange">
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:name=".apps.MyApplication"

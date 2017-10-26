@@ -3,11 +3,7 @@ package com.protoype.osindex.currencyexchange.apps;
 import android.content.res.Configuration;
 
 import com.orm.SugarApp;
-import com.protoype.osindex.currencyexchange.abstracts.CurrencyAbstract;
-import com.protoype.osindex.currencyexchange.models.RealCurrency;
 import com.protoype.osindex.currencyexchange.models.RealWorldCurrency;
-
-import static com.orm.SugarRecord.findById;
 
 /**
  * Created by osindex on 10/25/17.
