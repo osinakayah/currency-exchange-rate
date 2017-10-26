@@ -7,7 +7,6 @@ import com.protoype.osindex.currencyexchange.abstracts.CurrencyAbstract;
  */
 
 public class RealWorldCurrency extends CurrencyAbstract {
-    private double exchangeRateAgainstDollar;
     private double exchangeRateAgainstBTC;
     private double exchangeRateAgainstEth;
     private boolean isAddedToDash;
@@ -31,14 +30,7 @@ public class RealWorldCurrency extends CurrencyAbstract {
             save();
         }
         exchangeRateAgainstBTC      = 0d;
-        exchangeRateAgainstDollar   = 0d;
         exchangeRateAgainstEth      = 0d;
-    }
-    private void computeExchangeRateAgainstBitcoin(){
-
-    }
-    private void computeExchangeRateAgainstEtherum(){
-
     }
 
 }
