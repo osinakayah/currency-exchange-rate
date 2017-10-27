@@ -3,6 +3,7 @@ package com.protoype.osindex.currencyexchange.activities;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,6 +22,7 @@ import com.protoype.osindex.currencyexchange.interfaces.CurrencyInterface;
 import com.protoype.osindex.currencyexchange.models.RealCurrency;
 import com.protoype.osindex.currencyexchange.models.RealWorldCurrency;
 import com.protoype.osindex.currencyexchange.networks.CurrencyExchangeRate;
+import com.protoype.osindex.currencyexchange.util.Utility;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private List<RealWorldCurrency> unAddedCurrencies;
     private RecyclerView recyclerViewCurrency;
     private CurrencyAdapter currencyAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +52,13 @@ public class MainActivity extends AppCompatActivity {
         recyclerViewCurrency.setItemAnimator(new DefaultItemAnimator());
         recyclerViewCurrency.setAdapter(currencyAdapter);
 
+        SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout)findViewById(R.id.swipeContainer);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refreshExhangeRate();
+            }
+        });
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -133,8 +143,8 @@ public class MainActivity extends AppCompatActivity {
         if(currencyAdapter != null){
             currencyAdapter.notifyDataSetChanged();
         }
-        new CurrencyExchangeRate(this).getCurrencyExchangeRate(CurrencyExchangeRate.BITCOIN);
-        new CurrencyExchangeRate(this).getCurrencyExchangeRate(CurrencyExchangeRate.ETHEREUM);
+
+
     }
 
     private String[] getUnAddedCurrencies(){
@@ -145,5 +155,13 @@ public class MainActivity extends AppCompatActivity {
             stringUnaddedCurrencies[z] = realWorldCurrency.getFullname()+" ("+realWorldCurrency.getShortName()+")";
         }
         return stringUnaddedCurrencies;
+    }
+
+    private void refreshExhangeRate(){
+        if(Utility.getInstance(this).isNetWorkConnected()){
+            new CurrencyExchangeRate(this).getCurrencyExchangeRate(CurrencyExchangeRate.BITCOIN);
+            new CurrencyExchangeRate(this).getCurrencyExchangeRate(CurrencyExchangeRate.ETHEREUM);
+        }
+        prepareCurrencyList();
     }
 }
