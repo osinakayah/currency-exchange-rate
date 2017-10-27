@@ -20,6 +20,7 @@ import com.protoype.osindex.currencyexchange.adapters.CurrencyAdapter;
 import com.protoype.osindex.currencyexchange.interfaces.CurrencyInterface;
 import com.protoype.osindex.currencyexchange.models.RealCurrency;
 import com.protoype.osindex.currencyexchange.models.RealWorldCurrency;
+import com.protoype.osindex.currencyexchange.networks.CurrencyExchangeRate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -132,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
         if(currencyAdapter != null){
             currencyAdapter.notifyDataSetChanged();
         }
-
+        new CurrencyExchangeRate(this).getCurrencyExchangeRate(CurrencyExchangeRate.BITCOIN);
     }
 
     private String[] getUnAddedCurrencies(){
