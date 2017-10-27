@@ -134,6 +134,7 @@ public class MainActivity extends AppCompatActivity {
             currencyAdapter.notifyDataSetChanged();
         }
         new CurrencyExchangeRate(this).getCurrencyExchangeRate(CurrencyExchangeRate.BITCOIN);
+        new CurrencyExchangeRate(this).getCurrencyExchangeRate(CurrencyExchangeRate.ETHEREUM);
     }
 
     private String[] getUnAddedCurrencies(){

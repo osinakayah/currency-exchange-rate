@@ -33,4 +33,19 @@ public class RealWorldCurrency extends CurrencyAbstract {
         exchangeRateAgainstEth      = 0d;
     }
 
+    public String getExchangeRateAgainstBTC() {
+        return Double.toString(exchangeRateAgainstBTC);
+    }
+
+    public void setExchangeRateAgainstBTC(double exchangeRateAgainstBTC) {
+        this.exchangeRateAgainstBTC = exchangeRateAgainstBTC;
+    }
+
+    public String getExchangeRateAgainstEth() {
+        return Double.toString(exchangeRateAgainstEth);
+    }
+
+    public void setExchangeRateAgainstEth(double exchangeRateAgainstEth) {
+        this.exchangeRateAgainstEth = exchangeRateAgainstEth;
+    }
 }

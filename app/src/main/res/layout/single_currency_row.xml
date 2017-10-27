@@ -87,6 +87,7 @@
                             />
 
                         <TextView
+                            android:id="@+id/single_currency_rate_to_btc"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="0.1 BTC"
@@ -119,9 +120,10 @@
                             />
 
                         <TextView
+                            android:id="@+id/single_currency_rate_to_eth"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="0.1 BTC"
+                            android:text="0.1 ETH"
                             android:textStyle="bold"
                             android:textSize="@dimen/currency_exchange_text_size"/>
                     </LinearLayout>

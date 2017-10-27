@@ -8,6 +8,15 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.protoype.osindex.currencyexchange.models.RealWorldCurrency;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 
 public class CurrencyExchangeRate {
     private VolleyClient volleyClient;
@@ -23,15 +32,22 @@ public class CurrencyExchangeRate {
      * @param cryptoCurrency
      */
 
-    public void getCurrencyExchangeRate(int cryptoCurrency){
+    public void getCurrencyExchangeRate(final int cryptoCurrency){
         String url = BITCOIN_EXCHANGE_URL;
         if(cryptoCurrency == ETHEREUM){
             url = ETHERUM_EXCHANGE_URL;
         }
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, BITCOIN_EXCHANGE_URL, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Log.i(CurrencyExchangeRate.class.getName(), response);
+                try{
+                    saveExchangeRate(new JSONObject(response), cryptoCurrency);
+
+                }catch (JSONException error){
+
+                }
+
             }
         }, new Response.ErrorListener() {
             @Override
@@ -47,5 +63,36 @@ public class CurrencyExchangeRate {
         volleyClient = VolleyClient.getVolleyClientInstance(context);
         requestQueue = volleyClient.getRequestQueue();
 
+    }
+
+    private void saveExchangeRate(JSONObject jsonExchangeRate, int cryptoCurrency) throws JSONException{
+        Iterator<String> keys = jsonExchangeRate.keys();
+        while(keys.hasNext()){
+            String key = keys.next();
+            String val = null;
+            try{
+                val = jsonExchangeRate.getString(key);
+
+            }catch(Exception e){
+                Log.e(CurrencyExchangeRate.class.getName(), e.getMessage());
+            }
+
+            if(val != null){
+                List<RealWorldCurrency> realWorldCurrencyList = RealWorldCurrency.find(RealWorldCurrency.class, "short_name = ?", key);
+                if(realWorldCurrencyList.size() == 1){
+                    RealWorldCurrency realWorldCurrency = realWorldCurrencyList.get(0);
+
+
+                    if(cryptoCurrency == ETHEREUM){
+                        realWorldCurrency.setExchangeRateAgainstEth(Double.parseDouble(val));
+                    }else if(cryptoCurrency == BITCOIN){
+                        realWorldCurrency.setExchangeRateAgainstBTC(Double.parseDouble(val));
+                    }
+
+                    realWorldCurrency.save();
+
+                }
+            }
+        }
     }
 }
