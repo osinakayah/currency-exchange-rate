@@ -8,8 +8,10 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.protoype.osindex.currencyexchange.events.RefreshCompletedEvent;
 import com.protoype.osindex.currencyexchange.models.RealWorldCurrency;
 
+import org.greenrobot.eventbus.EventBus;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -94,5 +96,6 @@ public class CurrencyExchangeRate {
                 }
             }
         }
+        EventBus.getDefault().post(new RefreshCompletedEvent());
     }
 }

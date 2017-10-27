@@ -24,6 +24,9 @@ import com.protoype.osindex.currencyexchange.models.RealWorldCurrency;
 import com.protoype.osindex.currencyexchange.networks.CurrencyExchangeRate;
 import com.protoype.osindex.currencyexchange.util.Utility;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private List<RealWorldCurrency> unAddedCurrencies;
     private RecyclerView recyclerViewCurrency;
     private CurrencyAdapter currencyAdapter;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
 
     @Override
@@ -52,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerViewCurrency.setItemAnimator(new DefaultItemAnimator());
         recyclerViewCurrency.setAdapter(currencyAdapter);
 
-        SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout)findViewById(R.id.swipeContainer);
+        swipeRefreshLayout = (SwipeRefreshLayout)findViewById(R.id.swipeContainer);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -163,5 +167,22 @@ public class MainActivity extends AppCompatActivity {
             new CurrencyExchangeRate(this).getCurrencyExchangeRate(CurrencyExchangeRate.ETHEREUM);
         }
         prepareCurrencyList();
+    }
+
+    @Subscribe
+    public void onRefreshCompletedEvent(){
+        swipeRefreshLayout.setRefreshing(false);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
     }
 }
