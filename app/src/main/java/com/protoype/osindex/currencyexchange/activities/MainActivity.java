@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
         if(currenciesOnDashboard.size() < 1){
              new RealWorldCurrency(R.drawable.afn, "Afghan Afghani", "AFN", true);
              new RealWorldCurrency(R.drawable.all, "Albanian Lek", "ALL", true);
-             new RealWorldCurrency(R.drawable.ang, "Netherlands Antillean Guilder", "ANG", false);
+             new RealWorldCurrency(R.drawable.eur, "European Euro", "EUR", true);
              new RealWorldCurrency(R.drawable.aoa, "Angolan Kwanza", "AOA",true);
              new RealWorldCurrency(R.drawable.ars, "Argentine Peso", "ARS", true);
              new RealWorldCurrency(R.drawable.aud, "Australian Dollar", "AUD", true);
