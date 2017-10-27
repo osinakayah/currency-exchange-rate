@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
         if(currenciesOnDashboard.size() < 1){
              new RealWorldCurrency(R.drawable.afn, "Afghan Afghani", "AFN", true);
              new RealWorldCurrency(R.drawable.all, "Albanian Lek", "ALL", true);
-             new RealWorldCurrency(R.drawable.ang, "Netherlands Antillean Guilder", "ANG", true);
+             new RealWorldCurrency(R.drawable.ang, "Netherlands Antillean Guilder", "ANG", false);
              new RealWorldCurrency(R.drawable.aoa, "Angolan Kwanza", "AOA",true);
              new RealWorldCurrency(R.drawable.ars, "Argentine Peso", "ARS", true);
              new RealWorldCurrency(R.drawable.aud, "Australian Dollar", "AUD", true);
@@ -124,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
              new RealWorldCurrency(R.drawable.ghs, "Ghanaian Cedi", "GHS", true);
              new RealWorldCurrency(R.drawable.ngn, "Nigerian Naira", "NGN", true);
              new RealWorldCurrency(R.drawable.usd, "United States Dollar", "USD", true);
-             new RealWorldCurrency(R.drawable.zwl, "Zimbabwean Dollar", "ZWL", true);
+             new RealWorldCurrency(R.drawable.zwl, "Zimbabwean Dollar", "ZWL", false);
         }
         currenciesOnDashboard = RealWorldCurrency.find(RealWorldCurrency.class, "is_added_to_dash = ?", "1");
         realWorldCurrencies.clear();
