@@ -54,6 +54,7 @@ public class CurrencyExchangeRate {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                EventBus.getDefault().post(new RefreshCompletedEvent());
                 Log.i(CurrencyExchangeRate.class.getName(), error.toString());
             }
         });
@@ -86,9 +87,9 @@ public class CurrencyExchangeRate {
 
 
                     if(cryptoCurrency == ETHEREUM){
-                        realWorldCurrency.setExchangeRateAgainstEth(Double.parseDouble(val));
+                        realWorldCurrency.setExchangeRateAgainstEth(1/(Double.parseDouble(val)));
                     }else if(cryptoCurrency == BITCOIN){
-                        realWorldCurrency.setExchangeRateAgainstBTC(Double.parseDouble(val));
+                        realWorldCurrency.setExchangeRateAgainstBTC(1/(Double.parseDouble(val)));
                     }
 
                     realWorldCurrency.save();

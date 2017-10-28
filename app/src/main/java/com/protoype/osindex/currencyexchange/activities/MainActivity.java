@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements CurrencyClickList
     public void onItemClick(View view, int pos) {
         RealWorldCurrency realWorldCurrency = realWorldCurrencies.get(pos);
         Intent intent = new Intent(this, ConversionActivity.class);
+        intent.putExtra("REAL_CURRENCY_ID", realWorldCurrency.getId());
         startActivity(intent);
     }
 
