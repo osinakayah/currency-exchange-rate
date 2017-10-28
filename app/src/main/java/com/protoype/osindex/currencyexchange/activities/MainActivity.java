@@ -16,10 +16,8 @@ import android.view.MenuItem;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.protoype.osindex.currencyexchange.R;
-import com.protoype.osindex.currencyexchange.abstracts.CurrencyAbstract;
 import com.protoype.osindex.currencyexchange.adapters.CurrencyAdapter;
-import com.protoype.osindex.currencyexchange.interfaces.CurrencyInterface;
-import com.protoype.osindex.currencyexchange.models.RealCurrency;
+import com.protoype.osindex.currencyexchange.events.RefreshCompletedEvent;
 import com.protoype.osindex.currencyexchange.models.RealWorldCurrency;
 import com.protoype.osindex.currencyexchange.networks.CurrencyExchangeRate;
 import com.protoype.osindex.currencyexchange.util.Utility;
@@ -29,9 +27,6 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.protoype.osindex.currencyexchange.R.id.fab;
-import static com.protoype.osindex.currencyexchange.R.id.theater;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -165,13 +160,18 @@ public class MainActivity extends AppCompatActivity {
         if(Utility.getInstance(this).isNetWorkConnected()){
             new CurrencyExchangeRate(this).getCurrencyExchangeRate(CurrencyExchangeRate.BITCOIN);
             new CurrencyExchangeRate(this).getCurrencyExchangeRate(CurrencyExchangeRate.ETHEREUM);
+        }else{
+            Snackbar.make(swipeRefreshLayout.getRootView(), "No Internet Connection", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            swipeRefreshLayout.setRefreshing(false);
         }
-        prepareCurrencyList();
+
     }
 
     @Subscribe
-    public void onRefreshCompletedEvent(){
+    public void onRefreshCompletedEvent(RefreshCompletedEvent refreshCompletedEvent){
         swipeRefreshLayout.setRefreshing(false);
+        prepareCurrencyList();
     }
 
     @Override
