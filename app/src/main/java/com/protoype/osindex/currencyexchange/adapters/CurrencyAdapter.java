@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.protoype.osindex.currencyexchange.R;
+import com.protoype.osindex.currencyexchange.interfaces.CurrencyClickListener;
 import com.protoype.osindex.currencyexchange.models.RealWorldCurrency;
 
 import java.util.List;
@@ -18,9 +19,11 @@ import java.util.List;
 
 public class CurrencyAdapter extends RecyclerView.Adapter<CurrencyAdapter.ViewHolder> {
     private List<RealWorldCurrency> realWorldCurrencies;
+    private CurrencyClickListener currencyClickListener;
 
-    public CurrencyAdapter(List<RealWorldCurrency> realWorldCurrencyList){
+    public CurrencyAdapter(List<RealWorldCurrency> realWorldCurrencyList, CurrencyClickListener currencyClickListener){
         this.realWorldCurrencies = realWorldCurrencyList;
+        this.currencyClickListener = currencyClickListener;
     }
     public class ViewHolder extends RecyclerView.ViewHolder{
         public ImageView currencyImage;
@@ -42,7 +45,14 @@ public class CurrencyAdapter extends RecyclerView.Adapter<CurrencyAdapter.ViewHo
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view =  LayoutInflater.from(parent.getContext()).inflate(R.layout.single_currency_row, parent, false);
-        return  new ViewHolder(view);
+        final ViewHolder viewHolder = new ViewHolder(view);
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currencyClickListener.onItemClick(v, viewHolder.getAdapterPosition());
+            }
+        });
+        return  viewHolder;
     }
 
     @Override

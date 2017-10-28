@@ -1,5 +1,6 @@
 package com.protoype.osindex.currencyexchange.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -17,6 +18,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.protoype.osindex.currencyexchange.R;
 import com.protoype.osindex.currencyexchange.adapters.CurrencyAdapter;
 import com.protoype.osindex.currencyexchange.events.RefreshCompletedEvent;
+import com.protoype.osindex.currencyexchange.interfaces.CurrencyClickListener;
 import com.protoype.osindex.currencyexchange.models.RealWorldCurrency;
 import com.protoype.osindex.currencyexchange.networks.CurrencyExchangeRate;
 import com.protoype.osindex.currencyexchange.util.Utility;
@@ -27,7 +29,13 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements CurrencyClickListener{
+    @Override
+    public void onItemClick(View view, int pos) {
+        RealWorldCurrency realWorldCurrency = realWorldCurrencies.get(pos);
+        Intent intent = new Intent(this, ConversionActivity.class);
+        startActivity(intent);
+    }
 
     private List<RealWorldCurrency> realWorldCurrencies  = new ArrayList<>();
     private List<RealWorldCurrency> unAddedCurrencies;
@@ -44,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         prepareCurrencyList();
         recyclerViewCurrency  = (RecyclerView)findViewById(R.id.currency_list_recycler_view);
-        currencyAdapter = new CurrencyAdapter(realWorldCurrencies);
+        currencyAdapter = new CurrencyAdapter(realWorldCurrencies, this);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerViewCurrency.setLayoutManager(layoutManager);
         recyclerViewCurrency.setItemAnimator(new DefaultItemAnimator());
