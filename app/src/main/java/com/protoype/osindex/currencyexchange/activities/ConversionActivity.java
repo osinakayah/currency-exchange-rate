@@ -36,7 +36,10 @@ public class ConversionActivity extends AppCompatActivity implements AdapterView
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conversion);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         editTextFromAmount  = (EditText)findViewById(R.id.editText_from_amount);
         editTextToAmount    = (EditText)findViewById(R.id.editText_to_amount);
@@ -60,7 +63,7 @@ public class ConversionActivity extends AppCompatActivity implements AdapterView
         crytoCurrenciesSpinner.setAdapter(charSequenceArrayAdapter);
 
         Drawable fabSwitchDrawableIcon = MaterialDrawableBuilder.with(getApplicationContext())
-                .setIcon(MaterialDrawableBuilder.IconValue.SWAP_HORIZONTAL)
+                .setIcon(MaterialDrawableBuilder.IconValue.SWAP_VERTICAL)
                 .setColor(Color.WHITE)
                 .setToActionbarSize()
                 .build();
@@ -92,8 +95,8 @@ public class ConversionActivity extends AppCompatActivity implements AdapterView
         FrameLayout.LayoutParams realCurrencyLayoutParams = (FrameLayout.LayoutParams)realCurrency.getLayoutParams();
         FrameLayout.LayoutParams cryptoSpinnerLayoutParams = (FrameLayout.LayoutParams)crytoCurrenciesSpinner.getLayoutParams();
 
-        realCurrencyLayoutParams.gravity = Gravity.RIGHT;
-        cryptoSpinnerLayoutParams.gravity = Gravity.LEFT;
+        realCurrencyLayoutParams.gravity = Gravity.BOTTOM;
+        cryptoSpinnerLayoutParams.gravity = Gravity.TOP;
 
         realCurrency.setLayoutParams(realCurrencyLayoutParams);
         crytoCurrenciesSpinner.setLayoutParams(cryptoSpinnerLayoutParams);
@@ -109,8 +112,8 @@ public class ConversionActivity extends AppCompatActivity implements AdapterView
         FrameLayout.LayoutParams realCurrencyLayoutParams = (FrameLayout.LayoutParams)realCurrency.getLayoutParams();
         FrameLayout.LayoutParams cryptoSpinnerLayoutParams = (FrameLayout.LayoutParams)crytoCurrenciesSpinner.getLayoutParams();
 
-        realCurrencyLayoutParams.gravity = Gravity.LEFT;
-        cryptoSpinnerLayoutParams.gravity = Gravity.RIGHT;
+        realCurrencyLayoutParams.gravity = Gravity.TOP;
+        cryptoSpinnerLayoutParams.gravity = Gravity.BOTTOM;
 
         realCurrency.setLayoutParams(realCurrencyLayoutParams);
         crytoCurrenciesSpinner.setLayoutParams(cryptoSpinnerLayoutParams);
@@ -135,5 +138,11 @@ public class ConversionActivity extends AppCompatActivity implements AdapterView
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }

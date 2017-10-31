@@ -33,11 +33,13 @@
                 android:orientation="horizontal">
 
                 <com.facebook.drawee.view.SimpleDraweeView
-                    android:layout_width="130dp"
-                    android:layout_height="130dp"
                     fresco:placeholderImage="@drawable/afn"
                     fresco:roundAsCircle="true"
                     android:id="@+id/single_currency_image"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"
                     />
 
 
