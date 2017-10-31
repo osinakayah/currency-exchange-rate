@@ -35,6 +35,10 @@ public class MainActivity extends AppCompatActivity implements CurrencyClickList
     @Override
     public void onItemClick(View view, int pos) {
         RealWorldCurrency realWorldCurrency = realWorldCurrencies.get(pos);
+        if(Double.parseDouble(realWorldCurrency.getExchangeRateAgainstBTC()) == 0.0d){
+            showSnackBar("Click on refresh to get the current exchange rate");
+            return;
+        }
         Intent intent = new Intent(this, ConversionActivity.class);
         intent.putExtra("REAL_CURRENCY_ID", realWorldCurrency.getId());
         startActivity(intent);
@@ -178,8 +182,7 @@ public class MainActivity extends AppCompatActivity implements CurrencyClickList
             new CurrencyExchangeRate(this).getCurrencyExchangeRate(CurrencyExchangeRate.BITCOIN);
             new CurrencyExchangeRate(this).getCurrencyExchangeRate(CurrencyExchangeRate.ETHEREUM);
         }else{
-            Snackbar.make(swipeRefreshLayout.getRootView(), "No Internet Connection", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+            showSnackBar("No Internet Connection");
             swipeRefreshLayout.setRefreshing(false);
         }
 
@@ -218,10 +221,15 @@ public class MainActivity extends AppCompatActivity implements CurrencyClickList
                 realWorldCurrency.setAddedToDash(false);
                 realWorldCurrency.save();
                 prepareCurrencyList();
-                Snackbar.make(recyclerViewCurrency, realWorldCurrency.getFullname()+" Removed", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+
+                showSnackBar(realWorldCurrency.getFullname()+" Removed");
             }
         });
         return itemTouchHelper;
+    }
+
+    private void showSnackBar(String message){
+        Snackbar.make(recyclerViewCurrency, message, Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();
     }
 }
