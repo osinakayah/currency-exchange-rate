@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
@@ -131,7 +132,14 @@ public class ConversionActivity extends AppCompatActivity implements AdapterView
     }
 
     public void convertCurrency(View view){
-        double amount = Double.parseDouble(editTextFromAmount.getText().toString());
+        String stringAmount = editTextFromAmount.getText().toString();
+        if(stringAmount.equalsIgnoreCase("")){
+            Snackbar.make(view, "Enter a valid number", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
+            return;
+        }
+
+        double amount = Double.parseDouble(stringAmount);
         editTextToAmount.setText(Double.toString(conversionManager.convert(amount)));
     }
 
