@@ -68,10 +68,10 @@ public class CurrencyAdapter extends RecyclerView.Adapter<CurrencyAdapter.ViewHo
         holder.currencyImage.setImageURI(uri);
         holder.textViewCurrencyShortName.setText(realWorldCurrency.getShortName());
         holder.textViewCurrencyFullname.setText(realWorldCurrency.getFullname());
-        holder.textViewCurrencyShortNameToBtc.setText(realWorldCurrency.getShortName());
-        holder.textViewCurrencyShortNameToEth.setText(realWorldCurrency.getShortName());
-        holder.textViewCurrencyRateToEth.setText(realWorldCurrency.getExchangeRateAgainstEth()+" ETH");
-        holder.textViewCurrencyRateToBtc.setText(realWorldCurrency.getExchangeRateAgainstBTC()+" BTC");
+//        holder.textViewCurrencyShortNameToBtc.setText();
+//        holder.textViewCurrencyShortNameToEth.setText();
+        holder.textViewCurrencyRateToEth.setText(realWorldCurrency.getExchangeRateAgainstEth()+" "+realWorldCurrency.getShortName());
+        holder.textViewCurrencyRateToBtc.setText(realWorldCurrency.getExchangeRateAgainstBTC()+" "+realWorldCurrency.getShortName());
     }
 
     @Override

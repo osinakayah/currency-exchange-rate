@@ -71,6 +71,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
                         <TextView
+                            android:text="BTC"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/single_currency_short_name_to_btc"
@@ -98,12 +99,14 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:layout_alignLeft="@id/linear_layout_btn_row"
                         android:layout_alignParentRight="true"
                         android:layout_below="@id/linear_layout_btn_row"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
                         <TextView
+                            android:text="ETH"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/single_currency_short_name_to_eth"

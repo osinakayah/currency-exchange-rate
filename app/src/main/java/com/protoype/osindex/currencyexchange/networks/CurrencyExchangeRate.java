@@ -87,9 +87,9 @@ public class CurrencyExchangeRate {
 
 
                     if(cryptoCurrency == ETHEREUM){
-                        realWorldCurrency.setExchangeRateAgainstEth(1/(Double.parseDouble(val)));
+                        realWorldCurrency.setExchangeRateAgainstEth((Double.parseDouble(val)));
                     }else if(cryptoCurrency == BITCOIN){
-                        realWorldCurrency.setExchangeRateAgainstBTC(1/(Double.parseDouble(val)));
+                        realWorldCurrency.setExchangeRateAgainstBTC((Double.parseDouble(val)));
                     }
 
                     realWorldCurrency.save();
