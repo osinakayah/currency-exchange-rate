@@ -1,6 +1,8 @@
 package com.protoype.osindex.currencyexchange.activities;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -15,6 +17,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.protoype.osindex.currencyexchange.R;
@@ -24,6 +27,8 @@ import com.protoype.osindex.currencyexchange.interfaces.CurrencyClickListener;
 import com.protoype.osindex.currencyexchange.models.RealWorldCurrency;
 import com.protoype.osindex.currencyexchange.networks.CurrencyExchangeRate;
 import com.protoype.osindex.currencyexchange.util.Utility;
+
+import net.steamcrafted.materialiconlib.MaterialDrawableBuilder;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -36,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements CurrencyClickList
     public void onItemClick(View view, int pos) {
         RealWorldCurrency realWorldCurrency = realWorldCurrencies.get(pos);
         if(Double.parseDouble(realWorldCurrency.getExchangeRateAgainstBTC()) == 0.0d){
-            showSnackBar("Click on refresh to get the current exchange rate");
+            showToastMessage("Click on refresh to get the current exchange rate");
             return;
         }
         Intent intent = new Intent(this, ConversionActivity.class);
@@ -74,7 +79,14 @@ public class MainActivity extends AppCompatActivity implements CurrencyClickList
             }
         });
 
+        Drawable fabSwitchDrawableIcon = MaterialDrawableBuilder.with(getApplicationContext())
+                .setIcon(MaterialDrawableBuilder.IconValue.PLUS)
+                .setColor(Color.WHITE)
+                .setToActionbarSize()
+                .build();
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setImageDrawable(fabSwitchDrawableIcon);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -103,7 +115,7 @@ public class MainActivity extends AppCompatActivity implements CurrencyClickList
 //                        .setAction("Action", null).show();
             }
         });
-
+        initPermanentSnackBAr();
         swipeToDelete().attachToRecyclerView(recyclerViewCurrency);
     }
 
@@ -126,7 +138,6 @@ public class MainActivity extends AppCompatActivity implements CurrencyClickList
             return true;
         }
         else if(id == R.id.menu_refresh){
-            swipeRefreshLayout.setRefreshing(true);
             refreshExhangeRate();
         }
 
@@ -178,11 +189,13 @@ public class MainActivity extends AppCompatActivity implements CurrencyClickList
     }
 
     private void refreshExhangeRate(){
+
         if(Utility.getInstance(this).isNetWorkConnected()){
+            swipeRefreshLayout.setRefreshing(true);
             new CurrencyExchangeRate(this).getCurrencyExchangeRate(CurrencyExchangeRate.BITCOIN);
             new CurrencyExchangeRate(this).getCurrencyExchangeRate(CurrencyExchangeRate.ETHEREUM);
         }else{
-            showSnackBar("No Internet Connection");
+            showToastMessage("No Internet Connection");
             swipeRefreshLayout.setRefreshing(false);
         }
 
@@ -222,14 +235,28 @@ public class MainActivity extends AppCompatActivity implements CurrencyClickList
                 realWorldCurrency.save();
                 prepareCurrencyList();
 
-                showSnackBar(realWorldCurrency.getFullname()+" Removed");
+                showToastMessage(realWorldCurrency.getFullname()+" Removed");
             }
         });
         return itemTouchHelper;
     }
 
-    private void showSnackBar(String message){
-        Snackbar.make(recyclerViewCurrency, message, Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();
+    private void showToastMessage(String message){
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+
+    }
+
+    private void initPermanentSnackBAr(){
+        Snackbar snackbar = Snackbar
+                .make(recyclerViewCurrency, "Last updated 12-Oct-2016 at 8:22am", Snackbar.LENGTH_INDEFINITE)
+                .setAction("Refresh", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        refreshExhangeRate();
+                    }
+                });
+        View snackbarView = snackbar.getView();
+        snackbarView.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+        snackbar.show();
     }
 }

@@ -134,8 +134,7 @@ public class ConversionActivity extends AppCompatActivity implements AdapterView
     public void convertCurrency(View view){
         String stringAmount = editTextFromAmount.getText().toString();
         if(stringAmount.equalsIgnoreCase("")){
-            Snackbar.make(view, "Enter a valid number", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show();
+            Snackbar.make(view, "Enter a valid number", Snackbar.LENGTH_LONG).show();
             return;
         }
 
