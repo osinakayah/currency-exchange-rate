@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">CurrencyExchange</string>
+    <string name="app_name">Currencies</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_conversion">ConversionActivity</string>
+    <string name="title_activity_conversion">Conversion</string>
 
     <string-array name="cryptocurrencies_array">
         <item>Bitcoin</item>
