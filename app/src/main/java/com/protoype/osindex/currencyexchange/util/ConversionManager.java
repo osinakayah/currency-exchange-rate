@@ -22,10 +22,4 @@ public class ConversionManager {
     public ConversionManager(){
         fromRate = 0d;
     }
-
-    public void setFromRate(boolean isSwapped){
-        if(isSwapped){
-            this.fromRate = (1/fromRate);
-        }
-    }
 }

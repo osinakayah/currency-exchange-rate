@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
 import com.protoype.osindex.currencyexchange.models.RealWorldCurrency;
+import com.protoype.osindex.currencyexchange.networks.CurrencyExchangeRate;
 import com.protoype.osindex.currencyexchange.util.ConversionManager;
 import com.transitionseverywhere.*;
 
@@ -32,6 +33,7 @@ public class ConversionActivity extends AppCompatActivity implements AdapterView
     private EditText editTextFromAmount, editTextToAmount;
     private ViewGroup transitionsContainer;
     private Spinner crytoCurrenciesSpinner;
+    private int selectedCryptoCurency;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +47,7 @@ public class ConversionActivity extends AppCompatActivity implements AdapterView
         editTextFromAmount  = (EditText)findViewById(R.id.editText_from_amount);
         editTextToAmount    = (EditText)findViewById(R.id.editText_to_amount);
 
+
         realCurrency = (TextView)findViewById(R.id.textiew_real_currency_conversion_name);
 
         hasSwaped = false;
@@ -56,7 +59,7 @@ public class ConversionActivity extends AppCompatActivity implements AdapterView
 
         conversionManager = new ConversionManager();
         conversionManager.setFromRate(1/(Double.parseDouble(realWorldCurrency.getExchangeRateAgainstBTC())), hasSwaped);
-
+        selectedCryptoCurency = CurrencyExchangeRate.BITCOIN;
 
         transitionsContainer = (FrameLayout)findViewById(R.id.frameLayoutCurrencyConversion);
 
@@ -84,10 +87,20 @@ public class ConversionActivity extends AppCompatActivity implements AdapterView
 
                 if(hasSwaped){
                     switchCurrenciesBack();
+                    hasSwaped = false;
                 }else{
                     switchCurencies();
+                    hasSwaped = true;
                 }
-                conversionManager.setFromRate(hasSwaped);
+                switch (selectedCryptoCurency){
+                    case CurrencyExchangeRate.BITCOIN:
+                        conversionManager.setFromRate(1/Double.parseDouble(realWorldCurrency.getExchangeRateAgainstBTC()), hasSwaped);
+                        break;
+                    case CurrencyExchangeRate.ETHEREUM:
+                        conversionManager.setFromRate(1/Double.parseDouble(realWorldCurrency.getExchangeRateAgainstEth()), hasSwaped);
+                        break;
+
+                }
             }
         });
     }
@@ -102,7 +115,6 @@ public class ConversionActivity extends AppCompatActivity implements AdapterView
 
         realCurrency.setLayoutParams(realCurrencyLayoutParams);
         crytoCurrenciesSpinner.setLayoutParams(cryptoSpinnerLayoutParams);
-        hasSwaped = true;
     }
     private void switchCurrenciesBack(){
 
@@ -116,7 +128,6 @@ public class ConversionActivity extends AppCompatActivity implements AdapterView
 
         realCurrency.setLayoutParams(realCurrencyLayoutParams);
         crytoCurrenciesSpinner.setLayoutParams(cryptoSpinnerLayoutParams);
-        hasSwaped=false;
     }
 
     public void convertCurrency(View view){
@@ -127,9 +138,11 @@ public class ConversionActivity extends AppCompatActivity implements AdapterView
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         if(position == 0){
+            selectedCryptoCurency = CurrencyExchangeRate.BITCOIN;
             conversionManager.setFromRate(1/(Double.parseDouble(realWorldCurrency.getExchangeRateAgainstBTC())), hasSwaped);
         }
         else if(position == 1){
+            selectedCryptoCurency = CurrencyExchangeRate.ETHEREUM;
             conversionManager.setFromRate(1/(Double.parseDouble(realWorldCurrency.getExchangeRateAgainstEth())), hasSwaped);
         }
     }
