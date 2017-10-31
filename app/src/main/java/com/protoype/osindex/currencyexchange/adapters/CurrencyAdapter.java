@@ -1,5 +1,6 @@
 package com.protoype.osindex.currencyexchange.adapters;
 
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.facebook.common.util.UriUtil;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.protoype.osindex.currencyexchange.R;
 import com.protoype.osindex.currencyexchange.interfaces.CurrencyClickListener;
 import com.protoype.osindex.currencyexchange.models.RealWorldCurrency;
@@ -26,7 +29,7 @@ public class CurrencyAdapter extends RecyclerView.Adapter<CurrencyAdapter.ViewHo
         this.currencyClickListener = currencyClickListener;
     }
     public class ViewHolder extends RecyclerView.ViewHolder{
-        public ImageView currencyImage;
+        public SimpleDraweeView currencyImage;
         public TextView textViewCurrencyFullname, textViewCurrencyShortName,
                 textViewCurrencyShortNameToBtc, textViewCurrencyShortNameToEth,
                 textViewCurrencyRateToBtc, textViewCurrencyRateToEth;
@@ -34,7 +37,7 @@ public class CurrencyAdapter extends RecyclerView.Adapter<CurrencyAdapter.ViewHo
             super(view);
             textViewCurrencyFullname        = (TextView)view.findViewById(R.id.single_currency_fullname);
             textViewCurrencyShortName       = (TextView)view.findViewById(R.id.single_currency_short_name);
-            currencyImage                   = (ImageView)view.findViewById(R.id.single_currency_image);
+            currencyImage                   = (SimpleDraweeView)view.findViewById(R.id.single_currency_image);
             textViewCurrencyShortNameToBtc  = (TextView)view.findViewById(R.id.single_currency_short_name_to_btc);
             textViewCurrencyShortNameToEth  = (TextView)view.findViewById(R.id.single_currency_short_name_to_eth);
             textViewCurrencyRateToBtc       = (TextView)view.findViewById(R.id.single_currency_rate_to_btc);
@@ -58,8 +61,11 @@ public class CurrencyAdapter extends RecyclerView.Adapter<CurrencyAdapter.ViewHo
     @Override
     public void onBindViewHolder(CurrencyAdapter.ViewHolder holder, int position) {
         RealWorldCurrency realWorldCurrency = realWorldCurrencies.get(position);
-
-        holder.currencyImage.setImageResource(realWorldCurrency.getResource());
+        Uri uri = new Uri.Builder()
+                .scheme(UriUtil.LOCAL_RESOURCE_SCHEME) // "res"
+                .path(String.valueOf(realWorldCurrency.getResource()))
+                .build();
+        holder.currencyImage.setImageURI(uri);
         holder.textViewCurrencyShortName.setText(realWorldCurrency.getShortName());
         holder.textViewCurrencyFullname.setText(realWorldCurrency.getFullname());
         holder.textViewCurrencyShortNameToBtc.setText(realWorldCurrency.getShortName());
