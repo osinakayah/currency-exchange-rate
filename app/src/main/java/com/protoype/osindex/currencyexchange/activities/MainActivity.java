@@ -10,6 +10,8 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -53,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements CurrencyClickList
         setSupportActionBar(toolbar);
         prepareCurrencyList();
         recyclerViewCurrency  = (RecyclerView)findViewById(R.id.currency_list_recycler_view);
+
         currencyAdapter = new CurrencyAdapter(realWorldCurrencies, this);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerViewCurrency.setLayoutManager(layoutManager);
@@ -96,6 +99,8 @@ public class MainActivity extends AppCompatActivity implements CurrencyClickList
 //                        .setAction("Action", null).show();
             }
         });
+
+        swipeToDelete().attachToRecyclerView(recyclerViewCurrency);
     }
 
     @Override
@@ -196,5 +201,27 @@ public class MainActivity extends AppCompatActivity implements CurrencyClickList
     protected void onStop() {
         super.onStop();
         EventBus.getDefault().unregister(this);
+    }
+
+    private ItemTouchHelper swipeToDelete(){
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT){
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction)
+            {
+                Log.i(this.getClass().getName(), "Swipe");
+                RealWorldCurrency realWorldCurrency = realWorldCurrencies.get(viewHolder.getAdapterPosition());
+                realWorldCurrency.setAddedToDash(false);
+                realWorldCurrency.save();
+                prepareCurrencyList();
+                Snackbar.make(recyclerViewCurrency, realWorldCurrency.getFullname()+" Removed", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
+        return itemTouchHelper;
     }
 }
