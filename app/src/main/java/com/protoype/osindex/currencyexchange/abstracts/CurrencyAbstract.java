@@ -2,7 +2,9 @@ package com.protoype.osindex.currencyexchange.abstracts;
 
 import com.orm.SugarRecord;
 import com.protoype.osindex.currencyexchange.interfaces.CurrencyInterface;
-import com.protoype.osindex.currencyexchange.models.RealWorldCurrency;
+
+import java.util.Currency;
+
 
 /**
  * Created by osindex on 10/7/17.
@@ -10,7 +12,8 @@ import com.protoype.osindex.currencyexchange.models.RealWorldCurrency;
 
 public abstract class CurrencyAbstract extends SugarRecord<CurrencyInterface> implements CurrencyInterface {
     protected int iconResource;
-    protected String shortName, fullName;
+    protected String shortName, fullName, symbol;
+    private Currency currency;
 
     public CurrencyAbstract(){
 
@@ -19,6 +22,9 @@ public abstract class CurrencyAbstract extends SugarRecord<CurrencyInterface> im
         setFullname(fullName);
         setShortName(shortName);
         setResource(iconResource);
+
+        currency = Currency.getInstance(shortName);
+        symbol = currency.getSymbol();
     }
     @Override
     public void setResource(int iconResource) {
@@ -47,5 +53,10 @@ public abstract class CurrencyAbstract extends SugarRecord<CurrencyInterface> im
     @Override
     public String getShortName() {
         return shortName;
+    }
+
+    @Override
+    public String getSymbol() {
+        return symbol;
     }
 }

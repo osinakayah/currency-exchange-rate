@@ -10,12 +10,15 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.protoype.osindex.currencyexchange.events.RefreshCompletedEvent;
 import com.protoype.osindex.currencyexchange.models.RealWorldCurrency;
+import com.protoype.osindex.currencyexchange.util.Utility;
 
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -27,7 +30,7 @@ public class CurrencyExchangeRate {
     public static final int BITCOIN             = 1;
     public static final int ETHEREUM            = 2;
 
-    private RequestQueue requestQueue;
+    private Context context;
 
     /**
      *
@@ -64,7 +67,7 @@ public class CurrencyExchangeRate {
 
     public CurrencyExchangeRate(Context context){
         volleyClient = VolleyClient.getVolleyClientInstance(context);
-        requestQueue = volleyClient.getRequestQueue();
+        this.context = context;
 
     }
 
@@ -97,6 +100,8 @@ public class CurrencyExchangeRate {
                 }
             }
         }
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy/MM/dd 'at' hh:mm a");
+        Utility.getInstance(context).saveToSharedPref(dateFormatter.format(new Date()));
         EventBus.getDefault().post(new RefreshCompletedEvent());
     }
 }

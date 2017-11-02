@@ -1,5 +1,8 @@
 package com.protoype.osindex.currencyexchange.util;
 
+import java.math.BigDecimal;
+import java.math.MathContext;
+
 /**
  * Created by osindex on 10/28/17.
  */

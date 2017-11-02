@@ -205,6 +205,7 @@ public class MainActivity extends AppCompatActivity implements CurrencyClickList
     public void onRefreshCompletedEvent(RefreshCompletedEvent refreshCompletedEvent){
         swipeRefreshLayout.setRefreshing(false);
         prepareCurrencyList();
+        initPermanentSnackBAr();
     }
 
     @Override
@@ -248,7 +249,7 @@ public class MainActivity extends AppCompatActivity implements CurrencyClickList
 
     private void initPermanentSnackBAr(){
         Snackbar snackbar = Snackbar
-                .make(recyclerViewCurrency, "Last updated 12-Oct-2016 at 8:22am", Snackbar.LENGTH_INDEFINITE)
+                .make(recyclerViewCurrency, "Updated on "+Utility.getInstance(this).readSharedPref(), Snackbar.LENGTH_INDEFINITE)
                 .setAction("Refresh", new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {

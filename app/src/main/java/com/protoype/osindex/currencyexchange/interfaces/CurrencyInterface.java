@@ -12,4 +12,5 @@ public interface CurrencyInterface {
     int getResource();
     String getFullname();
     String getShortName();
+    String getSymbol();
 }
