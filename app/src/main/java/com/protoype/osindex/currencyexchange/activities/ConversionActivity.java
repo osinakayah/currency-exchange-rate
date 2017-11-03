@@ -29,7 +29,7 @@ import java.util.Currency;
 
 
 public class ConversionActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
-    private TextView txtViewrealCurrency, textViewToAmount, fromTextViewCurrencySymbol;
+    //private TextView txtViewrealCurrency, textViewToAmount, fromTextViewCurrencySymbol;
     private ConversionManager conversionManager;
     private boolean hasSwaped;
     private RealWorldCurrency realWorldCurrency;
@@ -52,13 +52,13 @@ public class ConversionActivity extends AppCompatActivity implements AdapterView
 
         transitionsContainer = (FrameLayout)findViewById(R.id.frameLayoutCurrencyConversion);
 
-        editTextFromAmount  = (EditText)findViewById(R.id.editText_from_amount);
-        textViewToAmount    = (TextView) findViewById(R.id.editText_to_amount);
+//        editTextFromAmount  = (EditText)findViewById(R.id.editText_from_amount);
+//        textViewToAmount    = (TextView) findViewById(R.id.editText_to_amount);
 
 
         //toTextViewCurrencySymbol = (TextView) findViewById(R.id.to_amount_symbol_textview);
-        fromTextViewCurrencySymbol = (TextView)findViewById(R.id.from_amount_symbol_textview);
-        this.txtViewrealCurrency = (TextView)findViewById(R.id.textiew_real_currency_conversion_name);
+        //fromTextViewCurrencySymbol = (TextView)findViewById(R.id.from_amount_symbol_textview);
+        //this.txtViewrealCurrency = (TextView)findViewById(R.id.textiew_real_currency_conversion_name);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.switch_between_crypto_and_real_currencies);
 
@@ -70,10 +70,10 @@ public class ConversionActivity extends AppCompatActivity implements AdapterView
 
         fromCurrencySymbol = Currency.getInstance(realWorldCurrency.getShortName());
 
-        fromTextViewCurrencySymbol.setText(fromCurrencySymbol.getSymbol());
+        //fromTextViewCurrencySymbol.setText(fromCurrencySymbol.getSymbol());
 
 
-        this.txtViewrealCurrency.setText(this.realWorldCurrency.getFullname());
+        //this.txtViewrealCurrency.setText(this.realWorldCurrency.getFullname());
 
         conversionManager = new ConversionManager();
         conversionManager.setFromRate(1/(Double.parseDouble(realWorldCurrency.getExchangeRateAgainstBTC())), hasSwaped);
@@ -122,26 +122,26 @@ public class ConversionActivity extends AppCompatActivity implements AdapterView
     private void switchCurencies(){
         TransitionManager.beginDelayedTransition(transitionsContainer, new ChangeBounds().setPathMotion(new ArcMotion()).setDuration(500));
 
-        FrameLayout.LayoutParams realCurrencyLayoutParams = (FrameLayout.LayoutParams)txtViewrealCurrency.getLayoutParams();
+        //FrameLayout.LayoutParams realCurrencyLayoutParams = (FrameLayout.LayoutParams)txtViewrealCurrency.getLayoutParams();
         FrameLayout.LayoutParams cryptoSpinnerLayoutParams = (FrameLayout.LayoutParams)crytoCurrenciesSpinner.getLayoutParams();
 
-        realCurrencyLayoutParams.gravity = Gravity.BOTTOM;
+        //realCurrencyLayoutParams.gravity = Gravity.BOTTOM;
         cryptoSpinnerLayoutParams.gravity = Gravity.TOP;
 
-        txtViewrealCurrency.setLayoutParams(realCurrencyLayoutParams);
+        //txtViewrealCurrency.setLayoutParams(realCurrencyLayoutParams);
         crytoCurrenciesSpinner.setLayoutParams(cryptoSpinnerLayoutParams);
     }
     private void switchCurrenciesBack(){
 
         TransitionManager.beginDelayedTransition(transitionsContainer, new ChangeBounds().setPathMotion(new ArcMotion()).setDuration(500));
 
-        FrameLayout.LayoutParams realCurrencyLayoutParams = (FrameLayout.LayoutParams)txtViewrealCurrency.getLayoutParams();
+        //FrameLayout.LayoutParams realCurrencyLayoutParams = (FrameLayout.LayoutParams)txtViewrealCurrency.getLayoutParams();
         FrameLayout.LayoutParams cryptoSpinnerLayoutParams = (FrameLayout.LayoutParams)crytoCurrenciesSpinner.getLayoutParams();
 
-        realCurrencyLayoutParams.gravity = Gravity.TOP;
+        //realCurrencyLayoutParams.gravity = Gravity.TOP;
         cryptoSpinnerLayoutParams.gravity = Gravity.BOTTOM;
 
-        txtViewrealCurrency.setLayoutParams(realCurrencyLayoutParams);
+        //txtViewrealCurrency.setLayoutParams(realCurrencyLayoutParams);
         crytoCurrenciesSpinner.setLayoutParams(cryptoSpinnerLayoutParams);
     }
 
@@ -154,7 +154,7 @@ public class ConversionActivity extends AppCompatActivity implements AdapterView
 
         double amount = Double.parseDouble(stringAmount);
         amount = (conversionManager.convert(amount));
-        textViewToAmount.setText(String.format("%.3f", amount));
+        //textViewToAmount.setText(String.format("%.3f", amount));
     }
 
     @Override
