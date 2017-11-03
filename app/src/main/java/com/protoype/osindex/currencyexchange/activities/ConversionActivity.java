@@ -29,7 +29,7 @@ import java.util.Currency;
 
 
 public class ConversionActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
-    private TextView txtViewrealCurrency, textViewToAmount, toTextViewCurrencySymbol, fromTextViewCurrencySymbol;
+    private TextView txtViewrealCurrency, textViewToAmount, fromTextViewCurrencySymbol;
     private ConversionManager conversionManager;
     private boolean hasSwaped;
     private RealWorldCurrency realWorldCurrency;
@@ -56,7 +56,7 @@ public class ConversionActivity extends AppCompatActivity implements AdapterView
         textViewToAmount    = (TextView) findViewById(R.id.editText_to_amount);
 
 
-        toTextViewCurrencySymbol = (TextView) findViewById(R.id.to_amount_symbol_textview);
+        //toTextViewCurrencySymbol = (TextView) findViewById(R.id.to_amount_symbol_textview);
         fromTextViewCurrencySymbol = (TextView)findViewById(R.id.from_amount_symbol_textview);
         this.txtViewrealCurrency = (TextView)findViewById(R.id.textiew_real_currency_conversion_name);
 
