@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:numpad="http://schemas.android.com/apk/res-auto"
@@ -9,62 +9,105 @@
     tools:context="com.protoype.osindex.currencyexchange.activities.ConversionActivity"
     tools:showIn="@layout/activity_conversion"
     android:id="@+id/constraint_layout_currency_conversion"
-    android:background="@color/colorPrimary"
-    android:paddingTop="32dp">
+    android:background="@color/colorPrimary">
 
     <FrameLayout
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
+        android:id="@+id/frameLayoutCurrencyConversion"
+        android:layout_width="0dp"
+        android:layout_height="150dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="32dp"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
-        android:id="@+id/frameLayoutCurrencyConversion"
-        android:layout_width="match_parent"
-        android:layout_height="100dp">
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintTop_creator="1">
 
         <LinearLayout
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="5dp"
+            android:id="@+id/real_currency_linear_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="top|fill_horizontal">
+            android:layout_gravity="top|fill_horizontal"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal">
 
             <ImageView
-                android:alpha="1"
-                android:id="@+id/textiew_real_currency_conversion_name"
+                android:id="@+id/imageview_real_currency_conversion_flag"
                 android:layout_width="50dp"
                 android:layout_height="30dp"
                 android:scaleType="fitStart"
-                android:src="@drawable/afn"/>
-            <TextView
-                android:textColor="@color/colorWhite"
-                android:gravity="right"
-                android:layout_weight="2"
+                android:src="@drawable/afn" />
+
+            <android.support.v4.widget.Space
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="$12" />
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/textview_real_currency_symbol"
+                android:textSize="25sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:text="$"
+                android:layout_marginRight="16dp"
+                android:textColor="@color/colorWhite" />
+
+            <TextView
+                android:id="@+id/textview_real_currency_value"
+                android:textSize="25sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:text=""
+                android:textColor="@color/colorWhite" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:layout_marginBottom="20dp"
-            android:layout_marginTop="5dp"
+            android:id="@+id/cryto_currency_linear_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="fill_horizontal|bottom">
+            android:layout_gravity="fill_horizontal|bottom"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal">
 
             <Spinner
                 android:id="@+id/cryptocurrency_spinner"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"/>
-            <TextView
-                android:textColor="@color/colorWhite"
-                android:layout_weight="2"
+                android:layout_height="match_parent" />
+
+            <android.support.v4.widget.Space
                 android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/text_view_cryto_currency_symbol"
+                android:textSize="25sp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="$12"
-                android:gravity="right"/>
+                android:gravity="right|center_vertical"
+                android:text="BTC"
+                android:layout_marginRight="16dp"
+                android:textColor="@color/colorWhite" />
+
+            <TextView
+                android:id="@+id/text_view_cryto_currency_value"
+                android:textSize="25sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right|center_vertical"
+                android:text=""
+                android:textColor="@color/colorWhite" />
 
         </LinearLayout>
 
@@ -77,15 +120,23 @@
     </FrameLayout>
 
     <cat.xojan.numpad.NumPadView
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentLeft="true"
-        android:id="@+id/to_amount_symbol_textview"
-        android:layout_width="match_parent"
-        android:layout_height="380dp"
+        android:id="@+id/numpad"
+        android:layout_width="0dp"
+        android:layout_height="350dp"
+
+        android:layout_marginTop="32dp"
         android:background="@color/colorWhite"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/frameLayoutCurrencyConversion"
         numpad:custom_button1_text="DEL"
         numpad:custom_button2_text="."
         numpad:textBold="false"
-        numpad:textColor="@color/colorBlack" />
-</RelativeLayout>
+        numpad:textColor="@color/colorBlack"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintTop_creator="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.985"
+        app:layout_constraintHorizontal_bias="0.0" />
+</android.support.constraint.ConstraintLayout>

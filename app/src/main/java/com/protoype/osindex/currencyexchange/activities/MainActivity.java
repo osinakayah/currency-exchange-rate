@@ -230,7 +230,6 @@ public class MainActivity extends AppCompatActivity implements CurrencyClickList
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction)
             {
-                Log.i(this.getClass().getName(), "Swipe");
                 RealWorldCurrency realWorldCurrency = realWorldCurrencies.get(viewHolder.getAdapterPosition());
                 realWorldCurrency.setAddedToDash(false);
                 realWorldCurrency.save();

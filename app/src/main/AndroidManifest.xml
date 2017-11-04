@@ -20,7 +20,7 @@
             android:value="currency_list.db" />
         <meta-data
             android:name="VERSION"
-            android:value="1" />
+            android:value="2" />
         <meta-data
             android:name="QUERY_LOG"
             android:value="true" />
@@ -39,6 +39,7 @@
             </intent-filter>
         </activity>
         <activity
+            android:screenOrientation="portrait"
             android:name=".activities.ConversionActivity"
             android:label="@string/title_activity_conversion"
             android:theme="@style/AppTheme.NoActionBar"></activity>
