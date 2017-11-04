@@ -158,7 +158,6 @@ public class ConversionActivity extends AppCompatActivity implements AdapterView
         }
 
         if(stringAmount.equalsIgnoreCase("")){
-            Toast.makeText(this, "Please enter a valid number", Toast.LENGTH_LONG).show();
             return;
         }
 
@@ -184,6 +183,7 @@ public class ConversionActivity extends AppCompatActivity implements AdapterView
             txtViewCryptoCurrencySymbol.setText("ETH");
             conversionManager.setFromRate(1/(Double.parseDouble(realWorldCurrency.getExchangeRateAgainstEth())), hasSwaped);
         }
+        convertCurrency();
     }
 
     @Override
@@ -204,6 +204,9 @@ public class ConversionActivity extends AppCompatActivity implements AdapterView
             public void onPadClicked(NumPadButton button) {
                 String buttonClicked            = getNumberClicked(button.name());
                 String currentValueOnTextView   = getCurrenctCurrencyValue();
+                if(buttonClicked.equalsIgnoreCase(".") && currentValueOnTextView.contains(".")){
+                    return;
+                }
                 if(hasSwaped){
                     if(buttonClicked.equalsIgnoreCase("D")){
                         if(currentValueOnTextView.length() > 0){
