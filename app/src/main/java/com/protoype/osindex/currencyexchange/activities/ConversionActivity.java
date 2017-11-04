@@ -161,13 +161,17 @@ public class ConversionActivity extends AppCompatActivity implements AdapterView
             return;
         }
 
-        double amount = Double.parseDouble(stringAmount);
-        amount = (conversionManager.convert(amount));
-        //textViewToAmount.setText(String.format("%.3f", amount));
-        if(hasSwaped){
-            txtViewrealCurrencyValue.setText(String.format("%.3f", amount));
-        }else{
-            txtViewCryptoCurrencyValue.setText(String.format("%.3f", amount));
+        try {
+            double amount = Double.parseDouble(stringAmount);
+            amount = (conversionManager.convert(amount));
+            //textViewToAmount.setText(String.format("%.3f", amount));
+            if(hasSwaped){
+                txtViewrealCurrencyValue.setText(String.format("%.3f", amount));
+            }else{
+                txtViewCryptoCurrencyValue.setText(String.format("%.3f", amount));
+            }
+        }catch (Exception e){
+
         }
     }
 
@@ -204,8 +208,13 @@ public class ConversionActivity extends AppCompatActivity implements AdapterView
             public void onPadClicked(NumPadButton button) {
                 String buttonClicked            = getNumberClicked(button.name());
                 String currentValueOnTextView   = getCurrenctCurrencyValue();
-                if(buttonClicked.equalsIgnoreCase(".") && currentValueOnTextView.contains(".")){
-                    return;
+                if(buttonClicked.equalsIgnoreCase(".")){
+                    if(currentValueOnTextView.contains(".")){
+                        return;
+                    }
+                    if(currentValueOnTextView.equalsIgnoreCase("")){
+                        buttonClicked = "0.";
+                    }
                 }
                 if(hasSwaped){
                     if(buttonClicked.equalsIgnoreCase("D")){
@@ -224,8 +233,9 @@ public class ConversionActivity extends AppCompatActivity implements AdapterView
                         convertCurrency();
                         return;
                     }
-                    txtViewrealCurrencyValue.append(getNumberClicked(button.name()));
+                    txtViewrealCurrencyValue.append(buttonClicked);
                 }
+
                 convertCurrency();
             }
         });
