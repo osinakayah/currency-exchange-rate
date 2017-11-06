@@ -7,8 +7,7 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.protoype.osindex.currencyexchange.activities.MainActivity"
     tools:showIn="@layout/activity_main"
-    android:background="@color/colorGrey"
-    android:layout_marginBottom="48dp">
+    android:background="@color/colorGrey">
 
     <android.support.v4.widget.SwipeRefreshLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
