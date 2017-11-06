@@ -241,7 +241,7 @@ public class MainActivity extends AppCompatActivity implements CurrencyClickList
 
     private void initPermanentSnackBAr(){
         Snackbar snackbar = Snackbar
-                .make(recyclerViewCurrency, "Updated on "+Utility.getInstance(this).readSharedPref(), Snackbar.LENGTH_LONG)
+                .make(recyclerViewCurrency, "Updated: "+Utility.getInstance(this).readSharedPref(), Snackbar.LENGTH_INDEFINITE)
                 .setAction("Refresh", new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
