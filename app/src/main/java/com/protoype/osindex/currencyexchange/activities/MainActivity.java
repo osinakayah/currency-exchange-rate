@@ -91,8 +91,7 @@ public class MainActivity extends AppCompatActivity implements CurrencyClickList
             @Override
             public void onClick(View view) {
                 new MaterialDialog.Builder(MainActivity.this)
-                            .title("New Currency")
-                            .content("Add new currency")
+                            .title("Add new currency")
                             .positiveText("Save")
                             .negativeText("Cancel")
                             .items(getUnAddedCurrencies())
@@ -110,9 +109,6 @@ public class MainActivity extends AppCompatActivity implements CurrencyClickList
                                 }
                             })
                             .show();
-
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
             }
         });
         initPermanentSnackBAr();
@@ -134,10 +130,7 @@ public class MainActivity extends AppCompatActivity implements CurrencyClickList
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        else if(id == R.id.menu_refresh){
+        if(id == R.id.menu_refresh){
             refreshExhangeRate();
         }
 
