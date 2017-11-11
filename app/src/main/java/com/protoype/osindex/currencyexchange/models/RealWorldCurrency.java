@@ -26,6 +26,9 @@ public class RealWorldCurrency extends CurrencyAbstract {
     public RealWorldCurrency(int iconResource, String fullName, String shortName, boolean shouldSave) {
         super(iconResource, fullName, shortName);
         this.isAddedToDash = false;
+        if(shortName.equalsIgnoreCase("NGN")){
+            this.isAddedToDash = true;
+        }
         if(shouldSave){
             save();
         }
